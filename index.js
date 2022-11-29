@@ -19,16 +19,32 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
 try{
 const categoryDataCollection = client.db('discoverWatches').collection('categoryData');
-
+const productsCollection = client.db('discoverWatches').collection('products');
+const blogsCollection = client.db('discoverWatches').collection('blogs');
+//category
 app.get('/categoryData', async(req, res) =>{
     const query = {};
     const data = await categoryDataCollection.find(query).toArray();
     res.send(data);
-    
+})
+//blogs
+app.get('/blogs', async(req, res) =>{
+    const query = {};
+    const data = await blogsCollection.find(query).toArray();
+    res.send(data);
+})
+
+// products
+app.get('/products/:id', async (req, res) => {
+    const id = req.params.id;
+    const query = {}
+    const allproduct = await productsCollection.find(query).toArray();
+    const product = allproduct.filter(pro=>pro.proId == id)
+    res.send(product);
+
 })
 }
 finally{
-
 }
 }
 run().catch(console.log);
