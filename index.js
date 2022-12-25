@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 
-// middleware
+// middleware--
 app.use(cors());
 app.use(express.json());
 
@@ -35,7 +35,7 @@ app.get('/blogs', async(req, res) =>{
 })
 
 // products
-app.get('/products/:id', async (req, res) => {
+app.get('/:id', async (req, res) => {
     const id = req.params.id;
     const query = {}
     const allproduct = await productsCollection.find(query).toArray();
